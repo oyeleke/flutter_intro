@@ -45,6 +45,9 @@ class Intro extends InheritedWidget {
   /// Click on whether the mask is allowed to be closed.
   final bool maskClosable;
 
+  /// on overlay dismissed
+  final Function? onOverlayDismissed;
+
   /// [order] order
   final String Function(
     int order,
@@ -57,6 +60,7 @@ class Intro extends InheritedWidget {
     this.noAnimation = false,
     this.maskClosable = false,
     this.buttonTextBuilder,
+    this.onOverlayDismissed,
     required Widget child,
   }) : super(child: child) {
     _animationDuration =
@@ -155,6 +159,7 @@ class Intro extends InheritedWidget {
     if (_overlayEntry == null) return;
 
     _removed = true;
+    onOverlayDismissed?.call();
     _overlayEntry!.markNeedsBuild();
     Timer(_animationDuration, () {
       if (_overlayEntry == null) return;
